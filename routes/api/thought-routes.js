@@ -13,7 +13,7 @@ router
 router
   .route('/:thoughtId')
   .get(getThoughtById)
-  .put(updatThought)
+  .put(updateThought)
   .delete(deleteThought);
 
 module.exports = router;

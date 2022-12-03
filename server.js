@@ -8,7 +8,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-
 // 18.1.5
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/18-mum-no', {
   useNewUrlParser: true,
@@ -20,4 +19,4 @@ mongoose.set('debug', true);
 
 app.use(require('./routes'));
 
-app.listen(PORT, () => console.log(`🌍 Connected on localhost:${PORT}`));
+app.listen(PORT, () => console.log(`Connected on localhost:${PORT}`));

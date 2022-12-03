@@ -44,7 +44,7 @@ const thoughtController = {
     },
 
     // update thought
-    updatThought(req, res) {
+    updateThought(req, res) {
         Thought.findOneAndUpdate(
             { _id: req.params.thoughtId},
             { $set: req.body },
@@ -81,7 +81,5 @@ const thoughtController = {
             .catch(err => res.json(err))
     }
 }
-
-
 
 module.exports = thoughtController
