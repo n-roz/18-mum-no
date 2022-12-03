@@ -19,3 +19,13 @@ THEN I am able to successfully create, update, and delete users and thoughts in 
 WHEN I test API POST and DELETE routes in Insomnia
 THEN I am able to successfully create and delete reactions to thoughts and add and remove friends to a user’s friend list
 ```
+
+Integrate the API code with the client’s existing codebase.
+
+Create a Pizza model using Mongoose.
+
+Use Mongoose’s middleware to automate functionality.
+
+Implement Mongoose’s pre-built methods for CRUD operations.
+
+Complete a working front end to create a new pizza.

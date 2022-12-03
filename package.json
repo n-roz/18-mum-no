@@ -1,0 +1,24 @@
+{
+  "name": "18-mum-no",
+  "version": "1.0.0",
+  "description": "## User Story ``` AS A social media startup I WANT an API for my social network that uses a NoSQL database SO THAT my website can handle large amounts of unstructured data ```",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/n-roz/18-mum-no.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/n-roz/18-mum-no/issues"
+  },
+  "homepage": "https://github.com/n-roz/18-mum-no#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^6.7.5"
+  }
+}
