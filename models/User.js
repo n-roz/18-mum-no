@@ -21,6 +21,7 @@
 // Array of _id values referencing the User model (self-reference)
 
 const { Schema, model } = require('mongoose');
+const moment = require('moment');
 
 const Userschema = new Schema(
     {
@@ -33,7 +34,7 @@ const Userschema = new Schema(
             type: String,
             required: true,
             unique: true,
-            match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please provide a valid email address!']
+            match: [/.+@.+\..+/]
         },
         thoughts: [
             {
