@@ -57,7 +57,7 @@ const thoughtController = {
         }))
     },  
       
-    // delete thought
+    // delete thought 18.2.5
     deleteThought({ params }, res) {
         Thought.findOneAndDelete({ _id: params.thoughtId })
             .then(deletedThought => {
