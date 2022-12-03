@@ -17,6 +17,8 @@
 
 // Array of nested documents created with the reactionSchema
 
+const { Schema, model } = require('mongoose')
+
 const ReactionSchema = new Schema(
     {
         reactionId: {
