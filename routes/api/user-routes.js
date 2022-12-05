@@ -1,7 +1,7 @@
 // 18.1.7
 const router = require('express').Router();
 
-const { getAllUsers, createUser, getUserById, updateUser, deleteUser } = require('../../controllers/user-controller');
+const { getAllUsers, createUser, getUserById, updateUser, deleteUser, createFriend, deleteFriend } = require('../../controllers/user-controller');
 
 // /api/users
 router
@@ -17,9 +17,9 @@ router
     .delete(deleteUser);
 
 // friends
-// router
-//     .route('/:userId/friends/:friendId')
-//     .post(addFriend)
-//     .delete(removeFriend);    
+router
+    .route('/:userId/friends/:friendId')
+    .put(createFriend)
+    .delete(deleteFriend);    
 
 module.exports = router;
