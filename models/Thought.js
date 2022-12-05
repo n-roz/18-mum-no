@@ -18,6 +18,7 @@
 // Array of nested documents created with the reactionSchema
 
 const { Schema, model } = require('mongoose')
+const moment = require('moment');
 
 const ReactionSchema = new Schema(
     {
@@ -44,7 +45,6 @@ const ReactionSchema = new Schema(
     },
     {
         toJSON: {
-            // virtuals: true,
             getters: true
         },
         id: false

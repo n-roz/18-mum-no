@@ -10,6 +10,7 @@ const thoughtController = {
                 select: '-__v'
             })
             .select('-__v')
+            .sort({ _id: -1 })
             .then(thoughts => {
                 res.json(thoughts);
             })
@@ -20,7 +21,7 @@ const thoughtController = {
     },
     
     // get one thought by id
-    getThoughtById(req, res) {
+    getThoughtById({ params }, res) {
         Thought.findOne({ _id: params.thoughtId })
             .then((Thought) => {
                 if (!Thought) {
@@ -31,18 +32,18 @@ const thoughtController = {
         },
 
         // createThought
-    createThought({ params, body }, res) {
+    createThought({ body }, res) {
         // console.log(body);
         Thought.create(body)
             .then(({ _id }) => {
                 return User.findOneAndUpdate(
-                    { _id: params.thoughtId },
+                    { _id: body.userId }, // { _id: params.thoughtId },
                     { $push: { thoughts: _id} },
                     { new: true }
                 )
             })
-            .then((User) => {
-                if (!User) {
+            .then((Thought) => {
+                if (!Thought) {
                     res.status(404).json({ message: 'No user found with this id!' })
                     return
                 }
@@ -69,16 +70,16 @@ const thoughtController = {
     },  
       
     // delete thought 18.2.5
-    deleteThought({ params }, res) {
-        Thought.findOneAndDelete({ _id: params.thoughtId })
+    deleteThought(req, res) {
+        Thought.findOneAndDelete({ _id: req.params.thoughtId })
             .then(deletedThought => {
                 if (!deletedThought) {
                     return res.status(404).json({ message: 'No thought found with this id!'})
                 }
                 return User.findOneAndUpdate(
-                    { _id: params.userId },
+                    { _id: req.params.userId },
                     { $pull: { thoughts: params.thoughtId }},
-                    { new: true }
+                    // { new: true }
                 );
             })
             .then(dbUserData => {
@@ -94,9 +95,9 @@ const thoughtController = {
     createReaction({ params, body }, res) {
         // 'createReaction' is declared but its value is never read.
         Thought.findOneAndUpdate(
-            { _id: params.thoughtId },
-            { $push: { reactions: body }},
-            { runValidators: true, new: true },
+            { _id: req.params.thoughtId },
+            { $addToSet: { reactions: req.body }}, // { $push: { reactions: body }},
+            { new: true }
         )
         .then((Thought) => {
         if (!Thought) {
@@ -109,8 +110,9 @@ const thoughtController = {
     // delete reaction
     deleteReaction(req, res) {
         Thought.findOneAndUpdate(
-            { _id: params.thoughtId },
+            { _id: req.params.thoughtId },
             { $pull: { reactions: { reactionId: req.params.reactionId } }},
+            { runValidators: true, new: true }
         )
         .then(Thought => {
             if (!Thought) {
