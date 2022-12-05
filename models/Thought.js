@@ -17,7 +17,7 @@
 
 // Array of nested documents created with the reactionSchema
 
-const { Schema, model } = require('mongoose')
+const { Schema, model } = require('mongoose');
 const moment = require('moment');
 
 const ReactionSchema = new Schema(
@@ -32,7 +32,6 @@ const ReactionSchema = new Schema(
             maxLengthLength: 280
         },
         username: {
-            
               type: String,
               required: true
         },

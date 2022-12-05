@@ -1,4 +1,4 @@
-const { User, Thought } = require('../models');
+const { User } = require('../models');
 
 const userController = {
     // get all users
@@ -9,7 +9,8 @@ const userController = {
                 select: '-_v'
             })
             .select(-_v)
-            .sort({ _id: -1 })
+            // ReferenceError: _v is not defined at getAllUsers 
+            // (/Users/roznik/Desktop/class/projects/18-mum-no/controllers/user-controller.js:11:22)
             .then(dbUserData => res.json(dbUserData))
             .catch(err => {
                 console.log(err);
