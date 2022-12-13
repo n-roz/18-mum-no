@@ -8,7 +8,7 @@ const userController = {
             //     path: 'thoughts',
             //     select: '-_v'
             // })
-            .select(-_v)
+            // .select(-_v)
             // ReferenceError: _v is not defined at getAllUsers 
             // (/Users/roznik/Desktop/class/projects/18-mum-no/controllers/user-controller.js:11:22)
             .then(dbUserData => res.json(dbUserData))
