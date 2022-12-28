@@ -1,23 +1,18 @@
 // 18.1.5
 // User
-
 // username
-
 // String
 // Unique
 // Required
 // Trimmed
 // email
-
 // String
 // Required
 // Unique
 // Must match a valid email address (look into Mongoose's matching validation)
 // thoughts
-
 // Array of _id values referencing the Thought model
 // friends
-
 // Array of _id values referencing the User model (self-reference)
 
 const { Schema, model } = require('mongoose');
@@ -33,7 +28,7 @@ const Userschema = new Schema(
             type: String,
             required: true,
             unique: true,
-            match: [/.+\@.+\..+/, 'Please enter a valid email']
+            match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please enter a valid email']
         },
         thoughts: [
             {

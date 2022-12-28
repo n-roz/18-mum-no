@@ -5,18 +5,18 @@ const thoughtController = {
     // get all thoughts
     getAllThoughts(req, res) {
         Thought.find({})
-            // .populate({
-            //     path: 'reactions',
-            //     select: '-__v'
-            // })
-            // .select('-__v')
+            .populate({
+                path: 'reactions',
+                select: '-__v'
+            })
+            .select('-__v')
             .sort({ _id: -1 })
             .then(thoughts => {
                 res.json(thoughts);
             })
             .catch(err => {
                 console.log(err);
-                res.status(500).json(err);
+                res.status(400).json(err);
             });
     },
 
@@ -25,10 +25,10 @@ const thoughtController = {
         Thought.findOne({ _id: params.thoughtId })
             .then((thoughts) => {
                 if (!thoughts) {
-                    return res.status(404).json(err)
+                    res.status(404).json(err) // return res.status(404).json(err)
                 }
-                // } else res.status(200).json(thoughts)
-                res.json(thoughts)
+                else res.status(200).json(thoughts)
+                // res.json(thoughts)
             })
             .catch((err) => res.status(500).json(err))
     },
@@ -64,15 +64,13 @@ const thoughtController = {
             { $set: req.body },
             { runValidators: true, new: true }
         )
-            .then((thoughts) => {
+            .then((thoughts => {
                 if (!thoughts) {
-                    return res.status(404).json({ message: 'No thought found with this id!' })
+                    res.status(404).json({ message: 'No thought found with this id!' })
                 }
-                res.json(thoughts)
-            })
-            .catch((err) => {
-                res.status(500).json(err)
-            })
+                else res.status(200).json(thoughts)
+                    .catch((err) => res.status(500).json(err))
+            }))
     },
 
     // delete thought 18.2.5
@@ -82,10 +80,10 @@ const thoughtController = {
                 if (!thoughts) {
                     return res.status(404).json({ message: 'No thought found with this id!' })
                 }
-                return User.findOneAndUpdate(
+                User.findOneAndUpdate(
                     { thoughts: req.params.userId },
                     { $pull: { thoughts: params.thoughtId } },
-                    { new: true }
+                    // { new: true }
                 );
             })
             .then(dbUserData => {
@@ -102,13 +100,12 @@ const thoughtController = {
         Thought.findOneAndUpdate(
             { _id: req.params.thoughtId },
             { $addToSet: { reactions: req.body } }, // { $push: { reactions: body }}
-            { runValidators: true, new: true }
+            { new: true }
         )
             .then((thoughts) => {
                 if (!thoughts) {
                     return res.status(404).json({ message: 'No thought found with this id!' })
-                } // else res.status(200).
-                    res.json(thoughts)
+                }   else res.status(200).json(thoughts)
                     .catch((err) => res.status(500).json(err))
             })
     },
@@ -122,7 +119,8 @@ const thoughtController = {
         )
             .then(thoughts => {
                 if (!thoughts) {
-                    return res.status(404).json({ message: 'No thought found with this id!' })
+                    res.status(404).json({ message: 'No thought found with this id!' })
+                    return
                 }
                 res.json(thoughts)
             })

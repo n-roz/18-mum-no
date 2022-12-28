@@ -30,10 +30,8 @@ Implement Mongoose’s pre-built methods for CRUD operations.
 
 Complete a working front end to create a new pizza.
 
-    - npm init -y
-    - npm install express
-    - npm install mongoose
-    - npm install moment
+    - npm i
+
 
 ## API Routes
 
