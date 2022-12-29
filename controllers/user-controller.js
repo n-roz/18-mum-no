@@ -2,7 +2,7 @@ const { User } = require('../models');
 
 const userController = {
     // get all users
-    getAllUsers(req, res) {
+    getAllUsers(_req, res) {
         User.find({})
             .populate({
                 path: 'thoughts',
@@ -11,11 +11,14 @@ const userController = {
             // .select(-_v)
             // ReferenceError: _v is not defined at getAllUsers 
             // (/Users/roznik/Desktop/class/projects/18-mum-no/controllers/user-controller.js:11:22)
+            // 18.1.8 What's this __v field, though? It's not terribly important, but Mongoose adds this field 
+            // for its own use of internal version tracking of a document. This __v field does offer some advanced use 
+            // cases for developers, but it's nothing we need to worry about at this stage.
             .then(dbUserData => res.json(dbUserData))
             .catch(err => {
                 console.log(err);
                 res.status(400).json(err)
-            })
+            });
     },
 
     // get one user by id
@@ -27,7 +30,6 @@ const userController = {
             })
             .select('-_v')
             .then(dbUserData => {
-
                 res.json(dbUserData)
             })
             .catch(err => {
@@ -49,7 +51,7 @@ const userController = {
             .then(dbUserData => {
                 if (!dbUserData) {
                     res.status(404).json({ message: 'No user found with this id!' });
-                    return
+                    return;
                 }
                 res.json(dbUserData);
             })
@@ -62,7 +64,7 @@ const userController = {
             .then(dbUserData => {
                 if (!dbUserData) {
                     res.status(404).json({ message: 'No user found with this id!' });
-                    return
+                    return;
                 }
                 res.json(dbUserData)
             })
@@ -79,11 +81,11 @@ const userController = {
             .then(dbUserData => {
                 if (!dbUserData) {
                     res.status(404).json({ message: 'No user found with this id!' });
-                    return
+                    return;
                 }
                 res.json(dbUserData)
             })
-            .catch(err => res.status(400).json(errorMonitor))
+            .catch(err => res.status(400).json(err))
     },
 
     // delete friend
@@ -96,7 +98,7 @@ const userController = {
             .then(dbUserData => {
                 if (!dbUserData) {
                     res.status(404).json({ message: 'No user found with this id!' });
-                    return
+                    return;
                 }
                 res.json(dbUserData)
             })

@@ -7,11 +7,11 @@ const { getAllUsers, createUser, getUserById, updateUser, deleteUser, createFrie
 router
     .route('/')
     .get(getAllUsers)
-    .post(createUser)
+    .post(createUser);
 
 // /api/users/:id
 router
-    .route('/:id')
+    .route('/:userId')
     .get(getUserById)
     .put(updateUser)
     .delete(deleteUser);
@@ -19,7 +19,7 @@ router
 // friends
 router
     .route('/:userId/friends/:friendId')
-    .put(createFriend)
+    .post(createFriend)
     .delete(deleteFriend);    
 
 module.exports = router;
