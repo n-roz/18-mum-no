@@ -24,14 +24,14 @@ const ReactionSchema = new Schema(
     {
         reactionId: {
             type: Schema.Types.ObjectId,
-            default: () => new ObjectId() // default: () => new Types.ObjectId()
+            default: () => new ObjectId()
         },
         reactionBody: {
             type: String,
             required: true,
             maxLength: 280
         },
-        userName: {
+        username: {
             type: String,
             required: true
         },
@@ -64,7 +64,7 @@ const ThoughtSchema = new Schema(
             default: Date.now,
             get: createdAtVal => moment(createdAtVal).format('MMM DD, YYYY [at] hh:mm a')
         },
-        userName: {
+        username: {
             type: String,
             required: true
         },
